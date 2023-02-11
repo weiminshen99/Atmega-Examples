@@ -9,5 +9,6 @@ https://itsallrc.wordpress.com/2014/04/13/how-to-flash-simonk-firmware/
 
 Add Position Control to ESP
 ===========================
-https://www.youtube.com/watch?v=8CcqD5sw90U
 https://hackaday.com/2016/02/04/adding-position-control-to-an-open-source-brushless-motor-driver/
+
+https://www.youtube.com/watch?v=8CcqD5sw90U
