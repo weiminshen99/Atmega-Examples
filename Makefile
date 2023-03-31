@@ -125,7 +125,8 @@ LDFLAGS +=$(addprefix -I,$(EXTRALIBDIRS))
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = avrisp2
+AVRDUDE_PROGRAMMER = USBasp
+#AVRDUDE_PROGRAMMER = avrisp2
 #AVRDUDE_PROGRAMMER = jtag2pdi
 #AVRDUDE_PROGRAMMER = avr109
 
@@ -190,9 +191,13 @@ showsize: elf
 	@echo
 	@$(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf 2>/dev/null
 
-# Flash the device.  
+# Flash the device.
 flash: hex eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_FUSES) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+
+# Read the device.
+read:
+	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.bin:r
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
