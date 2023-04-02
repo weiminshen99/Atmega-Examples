@@ -1,0 +1,57 @@
+MacBookPro:~ weiminshen99$ brew install osx-cross/avr/avr-gcc@12
+==> Downloading https://formulae.brew.sh/api/formula.jws.json
+#=#=#                                                                         
+==> Fetching dependencies for osx-cross/avr/avr-gcc@12: avr-binutils
+==> Fetching osx-cross/avr/avr-binutils
+==> Downloading https://github.com/osx-cross/homebrew-avr/releases/download/avr-binutils-2.40_1/avr-binutils-2.40_1.monterey.bottle.tar.gz
+==> Downloading from https://objects.githubusercontent.com/github-production-release-asset-2e65be/30939945/e72bfdb4-366f-4eb4-bee3-74a2cc9bffd1?X-Amz-Algorithm=AWS4-HM
+######################################################################## 100.0%
+==> Fetching osx-cross/avr/avr-gcc@12
+==> Downloading https://github.com/osx-cross/homebrew-avr/releases/download/avr-gcc@12-12.2.0_1/avr-gcc%4012-12.2.0_1.monterey.bottle.tar.gz
+==> Downloading from https://objects.githubusercontent.com/github-production-release-asset-2e65be/30939945/b3442468-2ac0-44ee-9ff6-2c591c0df941?X-Amz-Algorithm=AWS4-HM
+######################################################################## 100.0%
+==> Installing avr-gcc@12 from osx-cross/avr
+==> Installing dependencies for osx-cross/avr/avr-gcc@12: avr-binutils
+==> Installing osx-cross/avr/avr-gcc@12 dependency: avr-binutils
+==> Pouring avr-binutils-2.40_1.monterey.bottle.tar.gz
+==> Downloading https://formulae.brew.sh/api/cask.jws.json
+######################################################################## 100.0%
+🍺  /usr/local/Cellar/avr-binutils/2.40_1: 159 files, 24.4MB
+==> Installing osx-cross/avr/avr-gcc@12
+==> Pouring avr-gcc
+==> Caveats
+avr-gcc@12 is keg-only, which means it was not symlinked into /usr/local,
+because it might interfere with other version of avr-gcc.
+This is useful if you want to have multiple version of avr-gcc
+installed on the same machine.
+
+If you need to have avr-gcc@12 first in your PATH, run:
+  echo 'export PATH="/usr/local/opt/avr-gcc@12/bin:$PATH"' >> /Users/weiminshen99/.bash_profile
+
+For compilers to find avr-gcc@12 you may need to set:
+  export LDFLAGS="-L/usr/local/opt/avr-gcc@12/lib"
+==> Summary
+🍺  /usr/local/Cellar/avr-gcc@12/12.2.0_1: 1,880 files, 439.7MB
+==> Running `brew cleanup avr-gcc@12`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+Warning: Use wxwidgets instead of deprecated wxmac
+==> Caveats
+==> avr-gcc@12
+avr-gcc@12 is keg-only, which means it was not symlinked into /usr/local,
+because it might interfere with other version of avr-gcc.
+This is useful if you want to have multiple version of avr-gcc
+installed on the same machine.
+
+If you need to have avr-gcc@12 first in your PATH, run:
+  echo 'export PATH="/usr/local/opt/avr-gcc@12/bin:$PATH"' >> /Users/weiminshen99/.bash_profile
+
+For compilers to find avr-gcc@12 you may need to set:
+  export LDFLAGS="-L/usr/local/opt/avr-gcc@12/lib"
+
+NOTE:
+
+I do have avr-gcc v7.1 at /opt/local/bin/avr-gcc
+
+Wei-Min Mar-21-2023
+
