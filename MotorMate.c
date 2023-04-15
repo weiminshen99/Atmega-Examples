@@ -34,22 +34,38 @@
 
 // Reverse-engineered pinout
 //
+
+#define LS_A    _BV(PB0)
+#define LS_B    _BV(PB1)
+#define LS_C    _BV(PB2)
+#define HS_A    _BV(PD3)
+#define HS_B    _BV(PD4)
+#define HS_C    _BV(PD5)
+#define U_NULL  _BV(PD6)    // AIN0
+#define U_A     _BV(PD7)    // AIN1
+#define U_B     _BV(PC4)    // ADC4
+#define U_C     _BV(PC5)    // ADC5
+#define RC_IN   _BV(PD2)    // INT0
+
+/*
 #define LS_A    _BV(PD0)
 #define LS_B    _BV(PD1)
-#define RC_IN   _BV(PD2)    // INT0
 #define LS_C    _BV(PD3)
-#define HS_C    _BV(PD4)
+#define RC_IN   _BV(PD2)    // INT0
 #define HS_A    _BV(PD5)
-#define U_NULL  _BV(PD6)    // AIN0
 #define HS_B    _BV(PD7)
+#define HS_C    _BV(PD4)
+#define U_NULL  _BV(PD6)    // AIN0
 #define U_A     _BV(PC2)    // ADC2
 #define U_B     _BV(PC3)    // ADC3
 #define U_C     _BV(PC4)    // ADC4
+*/
+
 
 #define BOARD_ID  _BV(PB6)  // BOARD_ID
 
-#define I2C_SDA _BV(PC4)    // Conflicts with U_C -> Remove resistor network
-#define I2C_SCL _BV(PC5)
+#define I2C_SDA _BV(PC4)    // Conflicts with U_B -> Remove resistor network
+#define I2C_SCL _BV(PC5)    // Conflicts with U_C -> ???
 
 // Software PWM constants
 //
@@ -237,8 +253,12 @@ int main(void)
 
     // Initialize output pins
     //
+    PORTB = 0;
+    DDRB  = 0x07;	// B2,1,0 output: 00000111
+
     PORTD = 0;
-    DDRD  = 0xBB;
+    //DDRD  = 0xBB;	// 10111011
+    DDRD  = 0x38;	// D5,4,3 output: 00111000
 
     // Use timer 0 for software PWM output
     //
@@ -265,7 +285,7 @@ int main(void)
         TWAR = (I2C_ADDR_BASE + 0) << 1;
     else
         TWAR = (I2C_ADDR_BASE + 1) << 1;
-    
+
     TWCR = _BV(TWEA) | _BV(TWEN) | _BV(TWIE);
 
     sei();
@@ -312,7 +332,7 @@ int main(void)
         }
 
         cli(); rc_pulse = _rc_pulse; sei();
-        
+
         // Reference values
         //
         pwm_ref = 0;  // Normalized to -255 .. 255
@@ -344,7 +364,7 @@ int main(void)
         //
         i2c_data[2] = status;
         i2c_data[3] = pwm_act >> 1;
-        
+
         i2c_data[4] = u_bat_mv & 0xFF;
         i2c_data[5] = u_bat_mv >> 8;
 

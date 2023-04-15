@@ -10,11 +10,13 @@ OBJDIR = obj
 
 # Target file name (without extension)
 TARGET = $(OBJDIR)/MotorMate
+# TARGET = $(OBJDIR)/Null
 
 # Define all c source files here
 # (dependencies are generated automatically)
 #
 SOURCES  = MotorMate.c
+# SOURCES  = Null.c
 
 OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 
@@ -196,8 +198,11 @@ flash: hex eep
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_FUSES) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 # Read the device.
-read:
+read-bin:
 	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.bin:r
+
+read-hex:
+	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.hex:i
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf
