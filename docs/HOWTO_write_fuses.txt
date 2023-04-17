@@ -1,0 +1,66 @@
+The three commands to write the fuse in a new Atmega128L:
+
+IF USING PROGRAMMER 1 USE UISP:
+
+$ uisp -dprog=stk500 -dpart=ATmega128 -dserial=/dev/ttyS0 --wr_fuse_e=0xff
+$ uisp -dprog=stk500 -dpart=ATmega128 -dserial=/dev/ttyS0 --wr_fuse_h=0x81
+$ uisp -dprog=stk500 -dpart=ATmega128 -dserial=/dev/ttyS0 --wr_fuse_l=0xfe
+
+Note to read fuses :
+
+$# uisp -dprog=stk500 -dpart=ATmega128 -dserial=/dev/ttyS0 --rd_fuses
+
+IF USING OTHER PROGRAMMERS USE AVRDUDE:
+
+avrdude -p ATMEGA128 -c stk500v2 -P com1 -u -U lfuse:w:0xFE:m -U hfuse:w:0x81:m -U efuse:w:0xFF:m
+
+This programs all three fuses in one shot.
+
+TO READ THE FUSES:
+
+avrdude -p ATMEGA128 -c stk500v2 -t			// This enters the avrdude terminal mode
+
+avrdude> d lfuse							// This reads the lfuse and o/p as
+>>> 0000 fe
+
+avrdude> d hfuse							// This reads the hfuse 
+
+avrdude> d efuse							// This reads the efuse
+
+avrdude> w lfuse 0 0xbe							// This write the lfuse to be "be"
+
+avrdude> quit								// This exits the avrdude terminal mode
+
+
+Here is the explanation of the fuses:
+1)--wr_fuse_e=0xff : (see page 289 table 118 for the meanings of each bit in this extended fuse byte)
+
+* disable M103 Mode.THis allows us to use the extra features of atmega128 and peripherals associated with them
+
+*disable watch dog timer enable by default , u can always enable it in software without changing this fuse
+
+2)--wr_fuse_h=0x81 (see page 290 table 119 for the meanings of each bit in this fuse high byte)
+
+* diasble JTAG : beause 1)we are not using JTAG though its a great real time testing tool to have 2)it shall interfere with the ADC and ADC shall give wrong readings.
+
+* CLOCKOPT = 1, it can go up to 3-8MHz 
+* CLOCKOPT = 0, it can go 1 - 16 MHz
+* EESAVE = 0, save previous eeprom data, necessary for storing motor calibration data
+
+*rest defaults are fine
+
+3)--wr_fuse_l=0x3e (see page 290 table 120 for the meanings of each bit in this fuse low byte)
+
+bit 7 is BODLEVEL, 0 for min=3.7v, 1 for min=2.4v
+bit 6 is BODEN which enables the Brown-out detector when BODEN=0
+
+*SUT : start up time after MCU reset  around 65ms for a Xtal oscillator (sut =11 clkopt =1)
+
+*CLKSEL[3:1] = 111 needed to use external xrystal range 3-8Mhz with a load cap of 20pf . Our xtal is 4mhz with a load cap of 20pf
+
+*rest defaults are ok.
+
+NOTE!!!! : NEVER TOUCH THE LOCK BITS. CHANGING THEM IS NORMALLY NEVER NEEDED. THE MCU WILL BECOME UNPROGRAMMABLE IF U PROGRAM THEM INCORRECTLY BY MISTAKE !
+
+Fuses are non-volatile memory so u need to reprogram them only once.
+

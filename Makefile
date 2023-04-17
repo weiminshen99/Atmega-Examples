@@ -20,9 +20,9 @@ SOURCES  = MotorMate.c
 
 OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 
-# Optimization level, can be [0, 1, 2, 3, s]. 
+# Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
-# 
+#
 OPT = 2
 
 # List any extra directories to look for include files here.
