@@ -1,6 +1,7 @@
 # MCU name
 #
-MCU   = atmega8
+#MCU   = atmega328p
+MCU   = atmega8a
 F_CPU = 8000000
 
 # Object files directory
@@ -10,13 +11,13 @@ OBJDIR = obj
 
 # Target file name (without extension)
 TARGET = $(OBJDIR)/MotorMate
-# TARGET = $(OBJDIR)/Null
+# TARGET = $(OBJDIR)/Blink
 
 # Define all c source files here
 # (dependencies are generated automatically)
 #
 SOURCES  = MotorMate.c
-# SOURCES  = Null.c
+# SOURCES  = Blink.c
 
 OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 
@@ -138,11 +139,12 @@ AVRDUDE_PORT = usb
 AVRDUDE_FLAGS  = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 
 AVRDUDE_WRITE_FLASH += -U flash:w:$(TARGET).hex
+AVRDUDE_READ_FLASH += -U flash:r:$(TARGET):r
 # AVRDUDE_WRITE_EEPROM += -U eeprom:w:$(TARGET).eep
 
-# 06.09.2011: 
+# 06.09.2011:
 #   *SIGH* avrdude _still_ can't handle fuse bytes..
-#   Please keep them synchronized with main.c 
+#   Please keep them synchronized with main.c
 #
 # AVRDUDE_FUSES += -U fuse0:w:0xFF:m
 # AVRDUDE_FUSES += -U fuse1:w:0xFF:m
@@ -199,10 +201,11 @@ flash: hex eep
 
 # Read the device.
 read-bin:
-	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.bin:r
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:r:flash.bin:r
 
 read-hex:
-	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.hex:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U flash:r:flash.hex:i
+#	avrdude -p atmega8 -P usb -c USBasp -U flash:r:flash.hex:i
 
 # Create final output files (.hex, .eep) from ELF output file.
 %.hex: %.elf

@@ -62,7 +62,7 @@
 */
 
 
-#define BOARD_ID  _BV(PB6)  // BOARD_ID
+// #define BOARD_ID  _BV(PB6)  // BOARD_ID
 
 #define I2C_SDA _BV(PC4)    // Conflicts with U_B -> Remove resistor network
 #define I2C_SCL _BV(PC5)    // Conflicts with U_C -> ???
@@ -97,9 +97,14 @@ uint8_t  pwm_t0, pwm_out0;
 uint8_t  pwm_t1, pwm_out1;
 uint8_t  pwm_dead;
 
-
 static inline void deadtime_1us(void)
 {
+/*    uint8_t delay_1us = 1;
+    delay_1us = delay_1us + 1;    delay_1us = delay_1us + 2;
+    delay_1us = delay_1us + 3;    delay_1us = delay_1us + 4;
+    delay_1us = delay_1us + 5;    delay_1us = delay_1us + 6;
+    delay_1us = delay_1us + 7;    delay_1us = delay_1us + 8;
+*/
     PORTD = pwm_dead; PORTD = pwm_dead; PORTD = pwm_dead; PORTD = pwm_dead;
     PORTD = pwm_dead; PORTD = pwm_dead; PORTD = pwm_dead; PORTD = pwm_dead;
 }
@@ -188,7 +193,7 @@ uint8_t i2c_watchdog;
 
 ISR(TWI_vect)
 {
-    uint8_t status = TWSR & 0xF8;
+    uint8_t status = (TWSR & 0xF8 ? 1 : 0);
 
     switch (status) {
     case 0x60:  // Own SLA+W has been received
@@ -248,13 +253,13 @@ int main(void)
 
     // Set board ID to input w/ pullup
     //
-    DDRB  = 0;
-    PORTB = BOARD_ID;
+    //DDRB  = 0;
+    //PORTB = BOARD_ID;
 
     // Initialize output pins
     //
-    PORTB = 0;
-    DDRB  = 0x07;	// B2,1,0 output: 00000111
+    PORTB = 0x00;
+    DDRB  = 0x27;	// B5(LED), B2,1,0 output
 
     PORTD = 0;
     //DDRD  = 0xBB;	// 10111011
@@ -281,7 +286,7 @@ int main(void)
 
     // Enable I2C slave with interrupts
     //
-    if (PINB & BOARD_ID)
+    if (PINB & 0x01) // (PINB & BOARD_ID)
         TWAR = (I2C_ADDR_BASE + 0) << 1;
     else
         TWAR = (I2C_ADDR_BASE + 1) << 1;
@@ -297,7 +302,7 @@ int main(void)
     int pwm_ref  = 100;
     int pwm_act  = 0;
     int rc_pulse = 0;
-    int outputs  = 0;
+    //int outputs  = 0;
     int u_bat_mv = 0;
 
     for(;;) {
@@ -358,7 +363,7 @@ int main(void)
         pwm_ref = clamp(pwm_ref, -255, 255);
         pwm_act = clamp(pwm_ref, pwm_act - 1, pwm_act + 1);
 
-        outputs = i2c_data[1];
+        //outputs = i2c_data[1];
 
         // Actual values
         //
@@ -373,6 +378,10 @@ int main(void)
 
         set_pwm( ((long)pwm_act * PWM_PERIOD) / 255 );
 
+	PORTB = (1<<PB5); // LED on
+
         _delay_ms(1);
+
+	PORTB = (0<<PB5); // LED off
     }
 }
