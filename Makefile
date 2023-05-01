@@ -1,7 +1,7 @@
 # MCU name
 #
-#MCU   = atmega328p
-MCU   = atmega8a
+MCU   = atmega328p
+#MCU   = atmega8a
 F_CPU = 8000000
 
 # Object files directory
@@ -266,7 +266,7 @@ $(OBJDIR)/%.o : %.S
 # Target: clean project.
 clean:
 	@echo Cleaning project:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR) *.bin
 	rm -rf docs/html
 
 # Create object files directory
