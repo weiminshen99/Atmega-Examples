@@ -17,19 +17,20 @@
 
 void uart_putc(uint8_t uart, char c)
 {
-        if (uart == 0) {
-                // UDRE bit tells that UDR is empty and ready to be written to.
-                // UControlStatusReg(UCSR) contains control bits
-                loop_until_bit_is_set(UCSR0A, UDRE);
-                UDR0 = c;
-        }
-        else if (uart == 1) {
-                loop_until_bit_is_set(UCSR1A, UDRE);
-                UDR1 = c;
-        }
+    if (uart == 0) {
+    // UDRE bit tells that UDR is empty and ready to be written to.
+    // UControlStatusReg(UCSR) contains control bits
+        loop_until_bit_is_set(UCSR0A, UDRE);
+        UDR0 = c;
+    } else if (uart == 1) {
+        loop_until_bit_is_set(UCSR1A, UDRE);
+        UDR1 = c;
+    }
 }
 
-int def_putc(char ch) //handler for the printf
+
+//int def_putc(char ch) //handler for the printf
+int def_putc(char ch, FILE *f) //handler for the printf
 {
         uart_putc(DEFAULT_UART, ch);
         return ch;

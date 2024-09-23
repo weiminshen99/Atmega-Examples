@@ -10,14 +10,14 @@ F_CPU = 8000000
 OBJDIR = obj
 
 # Target file name (without extension)
-TARGET = $(OBJDIR)/MotorMate
-# TARGET = $(OBJDIR)/Blink
+#TARGET = $(OBJDIR)/MotorMate
+TARGET = $(OBJDIR)/Blink
 
 # Define all c source files here
 # (dependencies are generated automatically)
 #
-SOURCES  = MotorMate.c
-# SOURCES  = Blink.c
+#SOURCES  = MotorMate.c
+SOURCES  = Blink.c
 
 OBJECTS  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(basename $(SOURCES))))
 
