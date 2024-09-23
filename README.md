@@ -2,7 +2,9 @@ Blink the LED on the Nano Board (Atmega328)
 ===========================================
 
 By default in the current Makefile
+
 % make			// to compile
+
 % make flash 		// to upload
 
 MotorMate
