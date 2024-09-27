@@ -1,11 +1,9 @@
 Blink the LED on the Nano Board (Atmega328)
 ===========================================
 
-By default in the current Makefile
+Hardware: Mac --> USCasp --> Nano
 
-% make			// to compile
-
-% make flash 		// to upload
+Software: run "% make flash" here, and LED will blink
 
 MotorMate
 =========
