@@ -1,7 +1,7 @@
 Blink the LED on the Nano Board (Atmega328)
 ===========================================
 
-Hardware: Mac --> USCasp --> Nano
+Hardware: Mac --> USBasp --> Nano
 
 Software: run "% make flash" here, and LED will blink
 
