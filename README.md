@@ -1,12 +1,17 @@
-Blink the LED on the Nano Board (Atmega328)
-===========================================
 
-Hardware: Mac --> USBasp --> Nano
+Blink the LED on Nano (Atmega328)
+=================================
 
-Software: run "% make flash" here, and LED will blink
+Method 1: Mac --> USBasp --> Nano
 
-MotorMate
-=========
+"make flash" will compile/upload to Nano and LED will blink
+
+Method 2: Arduino-IDE --> USB cable --> Nano
+
+In IDE, open Blink.c, then compile and upload to Nano
+
+MotorMate (Atmega8)
+===================
 
 Custom brushed motor firmware for a cheap 20A ATmega8-based BLDC controller from China
 
