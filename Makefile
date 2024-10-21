@@ -128,12 +128,14 @@ LDFLAGS +=$(addprefix -I,$(EXTRALIBDIRS))
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = USBasp
+AVRDUDE_PROGRAMMER = arduino
+#AVRDUDE_PROGRAMMER = USBasp
 #AVRDUDE_PROGRAMMER = avrisp2
 #AVRDUDE_PROGRAMMER = jtag2pdi
 #AVRDUDE_PROGRAMMER = avr109
 
-AVRDUDE_PORT = usb
+AVRDUDE_PORT = /dev/cu.usbserial-1450
+# AVRDUDE_PORT = usb
 # AVRDUDE_PORT = com10 -b 115200
 
 AVRDUDE_FLAGS  = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
