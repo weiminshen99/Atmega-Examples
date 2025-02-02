@@ -2,11 +2,11 @@
 Blink the LED on Nano (Atmega328)
 =================================
 
-Method 1: Mac --> USBasp --> Nano
+Hardware configuration 1: Mac(terminal) <--> USBasp <--> Nano
 
-"make flash" will compile/upload to Nano and LED will blink
+software 1: "make flash" will compile/upload to Nano and LED will blink
 
-Method 2: Arduino-IDE --> USB cable --> Nano
+Hardware configuration 2: Arduino-IDE <--> USB cable <--> Nano
 
 In IDE, open Blink.c, then compile and upload to Nano
 
