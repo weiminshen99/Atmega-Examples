@@ -11,11 +11,15 @@ or with different baudrate 115200
 
 ## Blink the LED on Nano (Atmega328)
 
-Method 1: Mac --> USBasp --> Nano
+Hardware configuration 1: Mac(terminal) <--> USBasp <--> Nano
 
-"make flash" will compile/upload to Nano and LED will blink
+software 1: "make flash" will compile/upload to Nano and LED will blink
 
+<<<<<<< HEAD
 Method 2: Arduino-IDE --> USB/serial cable --> Nano
+=======
+Hardware configuration 2: Arduino-IDE <--> USB cable <--> Nano
+>>>>>>> eab038792671a9500aebed7465d45acb32a5efa9
 
 In IDE, open Blink.c, then compile and upload to Nano
 
